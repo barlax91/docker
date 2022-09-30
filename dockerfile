@@ -1,5 +1,5 @@
 
-FROM python:3
+FROM python:latest
 
 COPY . .
 
@@ -10,4 +10,4 @@ RUN apt-get update \
 
 RUN pip install -r requirements.txt
 
-CMD ["flask","--app","testf", "run", "--host=0.0.0.0"]
+CMD ["flask--app testf run", "--host=0.0.0.0"]

@@ -1,1 +1,13 @@
 uvicorn main:app
+
+
+DATABASE:
+	aller chercher l'image alpine de postgres
+	puis créer la base :
+		docker exec -it fastapi-postgres bash
+		create database fastapi_database;
+		create user myuser with encrypted password 'gtrk972';
+		grant all privileges on database fastapi_database to myuser;
+	la rendre visible :
+		\c fastapi_database;
+		psql -h localhost -p 5432 postgres
