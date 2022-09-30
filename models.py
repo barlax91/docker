@@ -6,6 +6,7 @@ import sqlalchemy as _sql
 
 import database as _database
 
+#définition des attributs de la table contact
 class Contact(_database.Base):
     __tablename__ = "contacts"
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)

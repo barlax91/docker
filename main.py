@@ -18,7 +18,7 @@ async def redirect():
     response = RedirectResponse(url='/docs')
     return response
     
-#définition des routes pour chaque requêtes
+#définition des routes pour chaque requête
 @app.post("/api/contacts/", response_model=_schemas.Contact)
 async def create_contact(
     contact: _schemas.CreateContact,

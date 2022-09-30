@@ -1,13 +1,14 @@
 
 FROM python:latest
 
+WORKDIR /app
+
+COPY requirements.txt ./
+
+RUN pip3 install -r requirements.txt
+
 COPY . .
 
-RUN apt-get update \
-  && apt-get install -y python3-pip\
-  && pip3 --no-cache-dir install --upgrade pip \
-  && apt-get -y install vim
+EXPOSE 8000
 
-RUN pip install -r requirements.txt
-
-CMD ["flask--app testf run", "--host=0.0.0.0"]
+CMD ["uvicorn", "main:app", "-h","0.0.0.0","--port","15400"]
