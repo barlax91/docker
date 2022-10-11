@@ -3,6 +3,7 @@
 ## Lancer le projet
 
 Build : docker-compose build
+
 Run : docker-compose up
 
 ## Lancer Postgres
