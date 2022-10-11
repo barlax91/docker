@@ -1,10 +1,44 @@
-version: '3.9'
-services: 
-    app:
-        build: .
-        container_name: "fastapi_project_container"
-        ports: 
-            - "8000:8000"
-        
+version: '3'
 
+services:
+    db:
+        image: "postgres:13-alpine"
+        ports:
+            - "5432:5432" 
+        env_file:
+            - db.env
+        healthcheck:
+            test: curl --fail -s http://localhost:5432/ || exit 1
+            interval: 2m
+            timeout: 10s
+            retries: 2
+        networks:
+            - apiserver
 
+    api:
+        build: ./
+        command: uvicorn main:app --reload --host 0.0.0.0 api --port 15400
+        depends_on:
+            - db
+        healthcheck:
+            test: curl --fail -s http://localhost:15400/ || exit 1
+            interval: 2m
+            timeout: 10s
+            retries: 2
+        networks:
+            - apiserver
+
+    nginx:
+        build: ./nginx/.
+        container_name: nginx
+        depends_on:
+            - db
+            - api
+        networks:
+            - apiserver
+        ports:
+            - 80:80
+
+networks:
+    apiserver:
+        driver: bridge
